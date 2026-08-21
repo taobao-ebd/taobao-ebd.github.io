@@ -225,22 +225,23 @@ td { padding: 19px 16px; border-bottom: 1px solid var(--line); font-family: var(
 .explorer-empty { padding: 28px; text-align: center; color: var(--muted); }
 
 .release-heading { margin-bottom: 36px; }
-.release-grid { width: min(100%, 760px); margin-left: auto; }
-.release-card { border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; background: rgba(255,255,255,.58); }
+.release-grid { width: 100%; }
+.release-card { padding: clamp(30px, 4.5vw, 58px); position: relative; display: grid; grid-template-columns: minmax(260px,.82fr) minmax(0,1.18fr); gap: clamp(36px, 6vw, 88px); align-items: start; border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; background: rgba(255,255,255,.58); }
 .code-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 9px; letter-spacing: .09em; }
 .copy-small { border: 0; background: transparent; padding: 3px; font-family: var(--mono); font-size: 9px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 pre { margin: 0; overflow: auto; }
-.release-card { padding: clamp(24px, 3.2vw, 38px); position: relative; }
-.release-card::after { content: ""; width: 140px; height: 140px; position: absolute; right: -60px; bottom: -65px; border-radius: 50%; background: var(--coral-soft); filter: blur(12px); z-index: 0; }
+.release-card::after { content: ""; width: 220px; height: 220px; position: absolute; right: -75px; bottom: -100px; border-radius: 50%; background: var(--coral-soft); filter: blur(24px); z-index: 0; }
 .release-card > * { position: relative; z-index: 1; }
 .release-status { display: flex; align-items: center; gap: 10px; color: var(--muted); }
-.release-card h3 { margin: 24px 0 12px; font-family: var(--mono); font-size: 26px; }
-.release-card p, .release-card li { font-size: 13px; color: #4d525e; }
-.release-card ol { padding-left: 22px; }
-.release-checklist { margin-top: 22px; padding-top: 15px; border-top: 1px solid var(--line); display: grid; gap: 7px; }
-.release-checklist span { font-family: var(--mono); font-size: 10px; }
-.release-checklist i { font-style: normal; display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 7px; border: 1px solid var(--line-dark); border-radius: 50%; }
-.release-checklist .done { border-color: #8db29f; color: var(--green); }
+.release-card h3 { margin: 26px 0 14px; font-family: var(--mono); font-size: clamp(28px, 3vw, 40px); letter-spacing: -.04em; }
+.release-card p, .release-card li { font-size: 14px; color: #4d525e; }
+.release-card-intro > p { max-width: 430px; margin-bottom: 0; }
+.release-card-details { padding-left: clamp(28px, 4vw, 56px); border-left: 1px solid var(--line); }
+.release-card .release-detail-label { margin: 0 0 14px; font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.release-card ol { margin: 0; padding-left: 22px; }
+.release-card li { padding: 4px 0; }
+.release-card li::marker { color: var(--coral); font-family: var(--mono); font-weight: 700; }
+.release-privacy { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
 
 .citation-section { background: var(--ink); color: white; }
 .citation-section .section-kicker { border-color: #444853; color: #b7bac3; }
@@ -321,6 +322,8 @@ pre { margin: 0; overflow: auto; }
   .sample-schema, .pre-mb-summary, .method-steps { grid-template-columns: 1fr; }
   .sample-schema article { border-right: 0; border-bottom: 1px solid var(--line); }
   .signal-evidence { grid-template-columns: 1fr; }
+  .release-card { grid-template-columns: 1fr; gap: 28px; }
+  .release-card-details { padding: 28px 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .explorer-head { grid-template-columns: 1fr; }
   .result-grid { grid-template-columns: 1fr 1fr; }
   .result-grid article:nth-child(2) { border-right: 0; }
@@ -357,6 +360,7 @@ pre { margin: 0; overflow: auto; }
   .paper-hero h1 { font-size: clamp(34px,10.5vw,46px); }
   .feature-kind-head { align-items: flex-start; flex-direction: column; gap: 3px; }
   .release-heading { margin-bottom: 28px; }
+  .release-card { padding: 26px 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
