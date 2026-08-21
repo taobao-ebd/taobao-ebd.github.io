@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f6f2">
+  <meta name="description" content="EBD: Engagement-aware Bidirectional Debiasing with User Micro-Behaviors in E-commerce Recommendations, accepted at CIKM 2026.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="EBD — Engagement-aware Bidirectional Debiasing">
+  <meta property="og:description" content="A CIKM 2026 method for mitigating Intention-Action Divergence bias with user micro-behaviors.">
+  <meta property="og:url" content="https://taobao-ebd.github.io/paper.html">
+  <meta property="og:image" content="https://taobao-ebd.github.io/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://taobao-ebd.github.io/paper.html">
+  <title>EBD — Engagement-aware Bidirectional Debiasing · CIKM 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>document.documentElement.classList.add('js');window.__revealFallback=window.setTimeout(function(){document.documentElement.classList.remove('js')},3000)</script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="paper">
+  <canvas class="signal-field" id="signal-field" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="./index.html" aria-label="ERMB dataset home"><span class="brand-mark" aria-hidden="true">E</span><span>EBD / ERMB</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Paper navigation">
+        <a href="#problem">Problem</a>
+        <a href="#map">MB map</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#paper-citation">Citation</a>
+        <a class="nav-paper" href="./index.html">ERMB dataset <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="paper-hero section-shell">
+      <div class="eyebrow reveal"><span class="status-dot"></span> CIKM '26 · Full research paper</div>
+      <h1 class="reveal">Engagement-aware Bidirectional Debiasing with User Micro-Behaviors in E-commerce Recommendations</h1>
+      <p class="paper-lead reveal">EBD addresses the gap between explicit actions and implicit interest by turning fine-grained user-device interactions into scalable engagement supervision for CTR and CVR prediction.</p>
+      <p class="paper-authors reveal">Weiqiu Wang · Runfeng Zhang · Yifei Liu · Anqi Zhu · Jie Fang · Mingming Pan · Haihong Jiang · Wen Xu · Yipeng Yu · Jiahao Yu · Yijiao Wang · Yeqiu Yang · Fei Sun · Jian Wu · Yuning Jiang · Xu Liu · Chengxiao Feng · Bo Zheng</p>
+      <div class="paper-actions reveal">
+        <a class="button button-dark" href="#paper-citation">DOI &amp; citation details <span aria-hidden="true">↓</span></a>
+        <a class="button button-light" href="./index.html">Explore ERMB <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="metrics-band" aria-label="Paper highlights">
+      <div class="section-shell metrics-grid reveal">
+        <div class="metric"><strong>100+</strong><span>micro-behaviors</span></div>
+        <div class="metric"><strong>P²ED</strong><span>CVR debiasing</span></div>
+        <div class="metric"><strong>EBD</strong><span>CTR co-training</span></div>
+        <div class="metric"><strong>0</strong><span>online MB features</span></div>
+        <div class="metric metric-accent"><strong>2-way</strong><span>bidirectional debiasing</span></div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell" id="problem">
+      <div class="section-kicker reveal">01 / THE PROBLEM</div>
+      <div class="section-heading split-heading reveal">
+        <h2>Actions do not always reveal intent.</h2>
+        <div>
+          <p>CTR and CVR models commonly treat clicks and purchases as binary ground truth. In practice, an accidental click can carry little interest, while an unclicked item may still receive prolonged viewing and careful exploration.</p>
+          <p>This mismatch is <strong>Intention-Action Divergence (IAD) bias</strong>: explicit user-action labels diverge from implicit interest levels inferred from micro-behaviors.</p>
+        </div>
+      </div>
+      <figure class="paper-figure-wide reveal">
+        <img src="assets/fig-iad-bias.svg" alt="Illustration of high and low Intention-Action Divergence bias across action and engagement combinations" width="504" height="315" loading="lazy">
+        <figcaption><span>Figure 1</span> High IAD bias appears in positive samples with low engagement and negative samples with high engagement.</figcaption>
+      </figure>
+    </section>
+
+    <section class="content-section signals-section" id="map">
+      <div class="section-shell">
+        <div class="section-kicker reveal">02 / MICRO-BEHAVIOR MAP</div>
+        <div class="section-heading split-heading reveal">
+          <h2>Observe the full decision journey.</h2>
+          <div>
+            <p>The paper mines fine-grained user-device interactions that occur before and after item clicks. Pre-click MBs capture exposure, swipe, and click cues in the two-column feed. Post-click MBs capture richer activity in Waterfall Pages and Product Detail Pages.</p>
+            <p>Rather than serving these signals online as expensive historical sequences, the approach compresses post-MBs into a lightweight, sample-level engagement score for training.</p>
+          </div>
+        </div>
+        <figure class="paper-figure-wide reveal">
+          <img src="assets/fig-micro-behavior-map.svg" alt="Micro-behavior map covering pre-click exposure, swipe, and click signals and post-click activities in Waterfall and Product Detail Pages" width="513" height="320" loading="lazy">
+          <figcaption><span>Figure 2</span> The MB map tracks the interaction trajectory from the Guess-You-Like feed through the Waterfall Page and Product Detail Page.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="content-section section-shell" id="method">
+      <div class="section-kicker reveal">03 / METHOD</div>
+      <div class="section-heading split-heading reveal">
+        <h2>From MBs to bidirectional debiasing.</h2>
+        <p>The method turns implicit engagement into training supervision in three stages, while keeping micro-behaviors out of online serving.</p>
+      </div>
+      <div class="method-steps">
+        <article class="method-step reveal"><span>STEP 01</span><h3>Engagement score</h3><p>Aggregate the weighted impact of 100+ post-click MBs into a normalized sample-level score that represents interest beyond the terminal label.</p></article>
+        <article class="method-step reveal"><span>STEP 02</span><h3>P²ED for CVR</h3><p>Pointwise debiasing emphasizes low-bias samples; pairwise debiasing learns relative intention as an auxiliary ranking objective.</p></article>
+        <article class="method-step reveal"><span>STEP 03</span><h3>EBD for CTR</h3><p>A click-engagement siamese network lets predicted click probability and debiased engagement scores correct each other through co-training.</p></article>
+      </div>
+      <figure class="paper-figure-wide reveal">
+        <img src="assets/fig-ebd-architecture.svg" alt="Architecture of the click-engagement siamese network with Engagement-aware Bidirectional Debiasing" width="396" height="243" loading="lazy">
+        <figcaption><span>Figure 6</span> The CTR module and engagement module debias one another while stop-gradient paths control the co-training signals.</figcaption>
+      </figure>
+    </section>
+
+    <section class="content-section signals-section" id="results">
+      <div class="section-shell">
+        <div class="section-kicker reveal">04 / EVIDENCE &amp; RESULTS</div>
+        <div class="section-heading split-heading reveal">
+          <h2>Signals align with outcomes.</h2>
+          <p>Pre-click and post-click micro-behaviors show clear outcome differences. The proposed debiasing framework converts that signal into both offline ranking gains and online business impact.</p>
+        </div>
+        <div class="signal-evidence">
+          <figure class="evidence-card reveal"><div><span>PRE-CLICK</span><h3>Effects on CTR</h3></div><img src="assets/fig-pre-mb-effects.svg" alt="Effects of pre-click micro-behaviors on click-through rate" width="189" height="135" loading="lazy"><figcaption>Hotspot presence, weighted browsing time, backward swipe, and swipe velocity separate different engagement levels.</figcaption></figure>
+          <figure class="evidence-card reveal"><div><span>POST-CLICK</span><h3>Effects on CVR</h3></div><img src="assets/fig-post-mb-effects.svg" alt="Effects of post-click micro-behaviors and click distance on conversion rate" width="711" height="513" loading="lazy"><figcaption>Review, swipe, zoom, click-distance, and live-chat behaviors reveal materially different conversion rates.</figcaption></figure>
+        </div>
+        <div class="result-grid reveal" aria-label="Reported paper results">
+          <article><strong>+2.2‰</strong><span>CVR AUC · OFFLINE</span></article>
+          <article><strong>+1.4‰</strong><span>CTR AUC · OFFLINE</span></article>
+          <article><strong>+4.27%</strong><span>GMV · ONLINE A/B</span></article>
+          <article><strong>+1.38%</strong><span>IPV · ONLINE A/B</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell">
+      <div class="paper-bridge reveal">
+        <div><span class="mini-label">OPEN DATASET</span><h2>Study the same signal space with ERMB.</h2><p>ERMB contains 66.55 million impressions, 22.76 million clicks, and more than one hundred pre-click and post-click micro-behavior signals.</p></div>
+        <a class="button button-dark" href="./index.html">Dataset page <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="content-section citation-section" id="paper-citation">
+      <div class="section-shell">
+        <div class="section-kicker reveal">05 / CITATION</div>
+        <div class="citation-grid">
+          <div class="reveal"><h2>Cite the paper.</h2><p>Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM '26).</p></div>
+          <div class="citation-code reveal">
+            <div class="code-head"><span>BIBTEX</span><button class="copy-small" type="button" data-copy-target="paper-bibtex">Copy citation</button></div>
+            <pre id="paper-bibtex"><code>@inproceedings{wang2026ebd,
+  title     = {EBD: Engagement-aware Bidirectional Debiasing with User Micro-Behaviors
+               in E-commerce Recommendations},
+  author    = {Wang, Weiqiu and Zhang, Runfeng and Liu, Yifei and Zhu, Anqi and Fang, Jie
+               and Pan, Mingming and Jiang, Haihong and Xu, Wen and Yu, Yipeng and Yu, Jiahao
+               and Wang, Yijiao and Yang, Yeqiu and Sun, Fei and Wu, Jian and Jiang, Yuning
+               and Liu, Xu and Feng, Chengxiao and Zheng, Bo},
+  booktitle = {Proceedings of the 35th ACM International Conference on Information and
+               Knowledge Management (CIKM '26)},
+  year      = {2026},
+  doi       = {10.1145/3799682.3840628}
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell footer-grid">
+      <div><a class="brand footer-brand" href="./index.html"><span class="brand-mark" aria-hidden="true">E</span><span>EBD / ERMB</span></a><p>Micro-behavior-aware recommendation research from CIKM 2026.</p></div>
+      <div><span class="mini-label">DATASET</span><a href="./index.html">ERMB overview</a><a href="./index.html#micro-behaviors">Signal explorer</a><a href="./index.html#release">Release status</a></div>
+      <div><span class="mini-label">PAPER</span><a href="#paper-citation">DOI &amp; citation</a></div>
+    </div>
+    <div class="section-shell footer-bottom"><span>EBD · CIKM 2026</span><span>Rome, Italy · November 7–11, 2026</span></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+  <script src="app.js" defer></script>
+</body>
+</html>

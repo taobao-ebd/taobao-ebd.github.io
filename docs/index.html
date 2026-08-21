@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f6f2">
+  <meta name="description" content="ERMB is an industrial-scale e-commerce recommendation dataset with rich pre-click and post-click micro-behavior signals, introduced with EBD at CIKM 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ERMB — E-commerce Recommendations with Micro-Behaviors">
+  <meta property="og:description" content="66.55M impressions, 22.76M clicks, and 100+ micro-behavior signals for studying user intention in recommendation.">
+  <meta property="og:url" content="https://taobao-ebd.github.io/">
+  <meta property="og:image" content="https://taobao-ebd.github.io/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://taobao-ebd.github.io/">
+  <title>ERMB — E-commerce Recommendations with Micro-Behaviors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>document.documentElement.classList.add('js');window.__revealFallback=window.setTimeout(function(){document.documentElement.classList.remove('js')},3000)</script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="dataset">
+  <canvas class="signal-field" id="signal-field" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="./index.html" aria-label="ERMB home">
+        <span class="brand-mark" aria-hidden="true">E</span>
+        <span>ERMB</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#micro-behaviors">Micro-behaviors</a>
+        <a href="#release">Release</a>
+        <a href="#citation">Citation</a>
+        <a class="nav-paper" href="./paper.html">EBD paper <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="status-dot"></span> CIKM '26 · Dataset release preview</div>
+        <h1 id="hero-title"><span>ERMB</span> captures the signals between exposure and action.</h1>
+        <p class="hero-deck"><strong>ERMB: E-commerce Recommendations with Micro-Behaviors Dataset.</strong> An industrial-scale dataset preserving fine-grained interaction trajectories for user intention modeling.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="./paper.html">Explore the EBD paper <span aria-hidden="true">→</span></a>
+          <a class="button button-light" href="#micro-behaviors">Explore the signals <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="release-line"><span>Release status</span> Dataset files and detailed field descriptions are being prepared.</p>
+      </div>
+
+      <aside class="trajectory-card reveal" aria-label="Example micro-behavior trajectory">
+        <div class="trajectory-topline">
+          <span>ILLUSTRATIVE SIGNAL TRACE</span>
+          <span class="trajectory-pulse">observing</span>
+        </div>
+        <div class="trajectory-stage">
+          <div class="stage-label">PRE-CLICK</div>
+          <div class="signal-row"><span class="signal-node coral"></span><span>Hotspot Dwell Duration</span><strong>detected</strong></div>
+          <div class="signal-row"><span class="signal-node blue"></span><span>Swipe Velocity</span><strong>low</strong></div>
+          <div class="signal-row"><span class="signal-node lilac"></span><span>Click distance</span><strong>long</strong></div>
+        </div>
+        <div class="trajectory-action"><span></span><b>CLICK</b><span></span></div>
+        <div class="trajectory-stage">
+          <div class="stage-label">POST-CLICK</div>
+          <div class="signal-row"><span class="signal-node blue"></span><span>Review Views</span><strong>viewed</strong></div>
+          <div class="signal-row"><span class="signal-node coral"></span><span>Image Zoom-Ins</span><strong>repeated</strong></div>
+          <div class="signal-row"><span class="signal-node lilac"></span><span>Live Chat Clicks</span><strong>initiated</strong></div>
+        </div>
+        <div class="engagement-readout">
+          <span>ENGAGEMENT SIGNAL</span>
+          <div><b>HIGH</b><span class="meter"><i style="width:82%"></i></span></div>
+        </div>
+      </aside>
+
+      <div class="hero-meta reveal">
+        <div>
+          <span class="meta-label">Introduced in</span>
+          <strong>EBD: Engagement-aware Bidirectional Debiasing with User Micro-Behaviors in E-commerce Recommendations</strong>
+        </div>
+        <div>
+          <span class="meta-label">Venue</span>
+          <strong>CIKM 2026 · Rome, Italy · November 7–11</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics-band" aria-label="Dataset highlights">
+      <div class="section-shell metrics-grid reveal">
+        <div class="metric"><strong>66.55M</strong><span>impressions</span></div>
+        <div class="metric"><strong>22.76M</strong><span>clicks</span></div>
+        <div class="metric"><strong>15.80M</strong><span>users</span></div>
+        <div class="metric"><strong>8.01M</strong><span>items</span></div>
+        <div class="metric metric-accent"><strong>100+</strong><span>micro-behavior signals</span></div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell" id="overview">
+      <div class="section-kicker reveal">01 / ABOUT THE PAPER</div>
+      <p class="source-faithful-note reveal">This repository accompanies our paper accepted by <strong>CIKM 2026</strong>. To mitigate the IAD bias, our paper makes the following contributions:</p>
+      <div class="section-heading reveal">
+        <h2>Beyond binary labels.</h2>
+        <p>Click-through Rate (CTR) prediction and Conversion Rate (CVR) prediction, as core tasks in modern e-commerce recommender systems, are conventionally formulated as binary classification tasks using click/purchase labels. However, this paradigm suffers from <strong>Intention-Action Divergence (IAD) bias</strong>, where users' explicit actions (e.g., click/purchase) misalign with their implicit interest levels inferred from fine-grained interactions (e.g., dwell time, swipe velocity).</p>
+      </div>
+
+      <div class="overview-grid">
+        <figure class="paper-figure figure-card reveal">
+          <img src="assets/fig-iad-bias.svg" alt="Illustration of Intention-Action Divergence bias showing mismatches between micro-behaviors and explicit labels" width="504" height="315" loading="lazy">
+          <figcaption><span>Figure 1</span> High IAD bias occurs when explicit actions contradict the engagement revealed by micro-behaviors.</figcaption>
+        </figure>
+
+        <div class="contribution-list reveal">
+          <article>
+            <span>01</span>
+            <div><h3>Micro-behavior Map &amp; MB-driven Intention Modeling.</h3><p>We mine more than one hundred kinds of user-device interactions in the decision-making process, termed <strong>Micro-Behaviors (MBs)</strong>, categorized into pre-click MBs (pre-MBs) and post-click MBs (post-MBs). Instead of constructing resource-consuming sequential features, we compress MBs into a lightweight sample-level <strong>engagement score</strong> that scalably quantifies users' intentions for billions of samples.</p></div>
+          </article>
+          <article>
+            <span>02</span>
+            <div><h3>Pointwise-and-Pairwise Engagement Debiasing (P²ED).</h3><p>For the CVR task, we propose the P²ED approach, which emphasizes low-bias samples and incorporates pairwise intention modeling as an auxiliary task, utilizing the predefined engagement scores only during training (since MBs are inaccessible in online serving).</p></div>
+          </article>
+          <article>
+            <span>03</span>
+            <div><h3>Engagement-aware Bidirectional Debiasing (EBD).</h3><p>To extend P²ED to the CTR task despite missing engagement scores in non-click samples, we propose a siamese co-training framework in which the CTR module and the engagement module debias each other bidirectionally.</p></div>
+          </article>
+          <article>
+            <span>04</span>
+            <div><h3>Open-source Dataset.</h3><p>We release ERMB, the first public dataset with rich MB signals, to advance research on MBs and IAD bias.</p></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="impact-strip reveal" aria-label="Reported model impact">
+        <div><b>+2.2‰</b><span>CVR AUC</span></div>
+        <div><b>+1.4‰</b><span>CTR AUC</span></div>
+        <div><b>+4.27%</b><span>GMV growth</span></div>
+        <div><b>+1.38%</b><span>IPV lift</span></div>
+        <p>Offline evaluation and online A/B tests reported in the paper. The framework has been deployed on a major e-commerce platform.</p>
+      </div>
+      <p class="source-faithful-note reveal">Our method delivers <strong>+2.2‰ / +1.4‰ AUC gains</strong> on CVR/CTR offline evaluation and drives <strong>+4.27% GMV growth</strong> and <strong>+1.38% IPV lift</strong> in online A/B tests. The framework has been deployed on a major e-commerce platform.</p>
+    </section>
+
+    <section class="content-section section-shell" id="dataset">
+      <div class="section-kicker reveal">02 / ABOUT THE ERMB DATASET</div>
+      <div class="section-heading split-heading reveal">
+        <h2>Industrial scale.<br>Interaction-level detail.</h2>
+        <div>
+          <p>The <strong>ERMB dataset</strong> is the first publicly available industrial-scale recommendation dataset containing rich micro-behavioral signals. Unlike existing public benchmarks that only log terminal actions such as clicks or conversions, ERMB preserves the fine-grained interaction trajectory between exposure and final action, enabling a faithful investigation of user intention modeling through MBs.</p>
+          <p>Derived from a major e-commerce platform, ERMB comprises <strong>66.55 million impression samples</strong> collected across diverse product categories and user segments — significantly larger than widely recognized CTR prediction benchmarks such as Avazu, Criteo, and MovieLens.</p>
+        </div>
+      </div>
+
+      <div class="sample-schema reveal" aria-label="Contents of each impression sample">
+        <article><span>01</span><h3>User / item / context</h3><p>Conventional user, item, and contextual features.</p></article>
+        <article><span>02</span><h3>Behavior sequences</h3><p>Behavior sequence features.</p></article>
+        <article><span>03</span><h3>Micro-behaviors</h3><p>More than one hundred signals spanning pre-click cues and post-click activities.</p></article>
+      </div>
+
+      <div class="privacy-note reveal"><span aria-hidden="true">◎</span><p>Rigorous anonymization protocols, including identifier hashing and attribute generalization, are applied to ensure data privacy compliance.</p></div>
+
+      <div class="table-block reveal">
+        <div class="table-title"><h3>Dataset statistics</h3><span>Values reported in the README</span></div>
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">ERMB train, test, and total dataset statistics</caption>
+            <thead><tr><th scope="col">Dataset Split</th><th scope="col">#Users</th><th scope="col">#Items</th><th scope="col">#Impressions</th><th scope="col">#Clicks</th></tr></thead>
+            <tbody>
+              <tr><td>Train</td><td>12.75M</td><td>7.17M</td><td>52.59M</td><td>18.01M</td></tr>
+              <tr><td>Test</td><td>3.79M</td><td>3.33M</td><td>13.96M</td><td>4.75M</td></tr>
+              <tr class="table-total"><td>Total</td><td>15.80M</td><td>8.01M</td><td>66.55M</td><td>22.76M</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section signals-section" id="micro-behaviors">
+      <div class="section-shell">
+        <div class="section-kicker reveal">03 / MICRO-BEHAVIORS</div>
+        <div class="section-heading split-heading reveal">
+          <h2>A trajectory,<br>not just a label.</h2>
+          <div>
+            <p><strong>Pre-click MBs</strong> occur on the dual-column feed before a click decision, grouped into exposure, swipe, and click signals.</p>
+            <p><strong>Post-click interactions</strong> occur in single-column Waterfall Pages (WP) and Product Detail Pages (PDPs), which provide richer interactive elements and detailed item metadata. These post-click engagements yield more granular signals for inferring users' intent, as the expanded interface enables deeper exploratory behaviors. In total, the ERMB dataset contains more than one hundred post-MBs, grouped by different user interaction modules.</p>
+          </div>
+        </div>
+
+        <h3 class="subsection-title reveal">Pre-click Micro-Behaviors (Pre-MBs)</h3>
+
+        <figure class="map-figure reveal">
+          <img src="assets/fig-micro-behavior-map.svg" alt="Micro-behavior map from pre-click exposure, swipe, and click through Waterfall and Product Detail Pages" width="513" height="320" loading="lazy">
+          <figcaption><span>Figure 2</span> The micro-behavior map follows the page-view process from a two-column feed through the Waterfall Page and Product Detail Page.</figcaption>
+        </figure>
+
+        <div class="pre-mb-summary reveal">
+          <article><span class="tag">EXPOSURE</span><h3>Hotspot Presence</h3><p>Whether the item has complete static exposure in the visual hotspot.</p><h3>Hotspot Dwell Duration</h3><p>Total duration of staying still in the visual hotspot.</p><h3>Weighted Hotspot Browsing Time</h3><p>Weighted total duration of static and swiping browsing in the hotspot.</p></article>
+          <article><span class="tag">SWIPE</span><h3>Backward Swipe</h3><p>Whether there is swiping downward to the visual hotspot.</p><h3>Swipe Velocity</h3><p>Velocity of finger swiping.</p><h3>Velocity Levels</h3><p>Level of velocity: high, medium, or low.</p></article>
+          <article><span class="tag">CLICK</span><h3>Click Distance</h3><p>Movement distance from the resting position to the click position.</p><h3>Click Distance Levels</h3><p>Level of click distance: long, medium, or short.</p></article>
+        </div>
+
+        <div class="signal-evidence">
+          <figure class="evidence-card reveal"><div><span>PRE-CLICK EVIDENCE</span><h3>Effects of Pre-MBs on CTR</h3></div><img src="assets/fig-pre-mb-effects.svg" alt="Bar chart showing the effects of hotspot presence, browsing time, backward swipe, and swipe velocity on click-through rate" width="189" height="135" loading="lazy"><figcaption>Signals such as hotspot presence and backward swipe reveal large differences in click-through rate.</figcaption></figure>
+          <figure class="evidence-card reveal"><div><span>POST-CLICK EVIDENCE</span><h3>Effects of Post-MBs on CVR</h3></div><img src="assets/fig-post-mb-effects.svg" alt="Bar chart showing the effects of review tag clicks, swipe down, image zoom-ins, click distance, and live chat clicks on conversion rate" width="711" height="513" loading="lazy"><figcaption>Downstream interactions reveal different levels of intent beyond the click itself.</figcaption></figure>
+        </div>
+
+        <div class="explorer reveal" id="feature-explorer">
+          <div class="explorer-head">
+            <div><span class="mini-label">DOCUMENTED SIGNALS</span><h3>Post-click Micro-Behaviors (Post-MBs) in ERMB</h3><p>Representative post-MBs include Product Detail Page Dwell Time, Swipe Down, Recommend-Tab Clicks, Review Tag Clicks, Review Views, Ask Everyone Entry Clicks, Product Detail Image Clicks, Image Zoom-Ins, Share, Service Module Clicks, and Live Chat Clicks. The complete list of additional post-MBs with definitions is provided in <a href="./additional_post_mbs.md">additional_post_mbs.md</a>.</p></div>
+            <label class="search-box"><span class="sr-only">Search documented micro-behaviors</span><input id="feature-search" type="search" placeholder="Search signals or definitions…" autocomplete="off"><kbd>/</kbd></label>
+          </div>
+          <div class="filter-row" id="feature-filters" aria-label="Filter feature groups"></div>
+          <p class="sr-only" id="feature-count" role="status" aria-live="polite"></p>
+          <div class="feature-groups" id="feature-groups"></div>
+          <p class="explorer-empty" id="explorer-empty" hidden>No documented signal matches this search.</p>
+          <noscript><p class="explorer-empty">JavaScript is optional for the rest of this page. Open <a href="./additional_post_mbs.md">additional_post_mbs.md</a> to read the complete post-click signal tables.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell" id="release">
+      <div class="section-kicker reveal">04 / REPOSITORY &amp; RELEASE</div>
+      <div class="section-heading split-heading reveal">
+        <h2>Ready for Pages.<br>Artifacts coming next.</h2>
+        <p>The repository is structured so the project page can be deployed from <code>docs/</code> on GitHub or GitLab Pages. The dataset directory currently records the intended sample contents while the files and detailed field descriptions are prepared for release.</p>
+      </div>
+
+      <div class="release-grid">
+        <div class="repo-tree reveal">
+          <div class="code-head"><span>REPOSITORY STRUCTURE</span><button class="copy-small" type="button" data-copy-target="repo-code">Copy</button></div>
+          <pre id="repo-code"><code>EBD/
+├── README.md                       # This file
+├── docs/
+│   ├── index.html                  # Project page (deployable via GitHub/GitLab Pages)
+│   └── additional_post_mbs.md      # Complete list of additional post-MBs (Table in the paper)
+├── dataset/                        # Dataset files and field descriptions (released here)
+└── .gitlab-ci.yml                  # GitLab Pages deployment for docs/</code></pre>
+          <div class="deploy-notes">
+            <p><strong>GitLab Pages</strong> — the included <code>.gitlab-ci.yml</code> publishes <code>docs/</code> automatically.</p>
+            <p><strong>GitHub Pages</strong> — choose <em>GitHub Actions</em> under <em>Settings → Pages → Source</em>; the included <code>.github/workflows/pages.yml</code> then publishes <code>docs/</code> automatically.</p>
+            <p><strong>Current Pages bundle</strong> — also includes <code>paper.html</code>, <code>styles.css</code>, <code>app.js</code>, and the paper figures under <code>assets/</code>.</p>
+          </div>
+        </div>
+
+        <aside class="release-card reveal">
+          <div class="release-status"><span class="status-dot"></span> RELEASE IN PREPARATION</div>
+          <h3>ERMB Dataset Files</h3>
+          <p>The ERMB dataset files and detailed field descriptions will be released in this directory.</p>
+          <p>Each impression sample contains:</p>
+          <ol><li>Conventional user/item/context features;</li><li>Behavior sequence features;</li><li>More than one hundred micro-behavior signals spanning both pre-click cues and post-click activities.</li></ol>
+          <p>Rigorous anonymization protocols, including identifier hashing and attribute generalization, have been applied to ensure data privacy compliance.</p>
+          <div class="release-checklist">
+            <span><i class="done">✓</i> Dataset documentation</span>
+            <span><i>·</i> Data files &amp; field schema</span>
+            <span><i>·</i> Download URL &amp; checksums</span>
+            <span><i>·</i> Research license file</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="content-section citation-section" id="citation">
+      <div class="section-shell">
+        <div class="section-kicker reveal">05 / CITATION &amp; LICENSE</div>
+        <div class="citation-grid">
+          <div class="reveal">
+            <h2>Cite ERMB &amp; EBD.</h2>
+            <p>If you use the ERMB dataset or find our work helpful, please cite:</p>
+            <p class="license-copy"><strong>License.</strong> The source README states: “The dataset is released for research purposes only. Please refer to the license file in <code>dataset/</code> for terms of use.” The referenced license file is not yet present and will be added before the dataset becomes downloadable.</p>
+          </div>
+          <div class="citation-code reveal">
+            <div class="code-head"><span>BIBTEX</span><button class="copy-small" type="button" data-copy-target="bibtex-code">Copy citation</button></div>
+            <pre id="bibtex-code"><code>@inproceedings{wang2026ebd,
+  title     = {EBD: Engagement-aware Bidirectional Debiasing with User Micro-Behaviors
+               in E-commerce Recommendations},
+  author    = {Wang, Weiqiu and Zhang, Runfeng and Liu, Yifei and Zhu, Anqi and Fang, Jie
+               and Pan, Mingming and Jiang, Haihong and Xu, Wen and Yu, Yipeng and Yu, Jiahao
+               and Wang, Yijiao and Yang, Yeqiu and Sun, Fei and Wu, Jian and Jiang, Yuning
+               and Liu, Xu and Feng, Chengxiao and Zheng, Bo},
+  booktitle = {Proceedings of the 35th ACM International Conference on Information and
+               Knowledge Management (CIKM '26)},
+  year      = {2026},
+  doi       = {10.1145/3799682.3840628}
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="authors-section section-shell reveal" aria-labelledby="authors-title">
+      <span class="mini-label">AUTHORS</span>
+      <h2 id="authors-title">The team behind EBD &amp; ERMB.</h2>
+      <p>Weiqiu Wang, Runfeng Zhang, Yifei Liu, Anqi Zhu, Jie Fang, Mingming Pan, Haihong Jiang, Wen Xu, Yipeng Yu, Jiahao Yu, Yijiao Wang, Yeqiu Yang, Fei Sun, Jian Wu, Yuning Jiang, Xu Liu, Chengxiao Feng, Bo Zheng</p>
+      <div class="authors-links"><a href="./paper.html">Explore the method page <span aria-hidden="true">→</span></a><a href="#citation">DOI &amp; citation details <span aria-hidden="true">↓</span></a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell footer-grid">
+      <div><a class="brand footer-brand" href="./index.html"><span class="brand-mark" aria-hidden="true">E</span><span>ERMB</span></a><p>E-commerce Recommendations with Micro-Behaviors.</p></div>
+      <div><span class="mini-label">SOURCE DOCUMENTS</span><a href="https://github.com/taobao-ebd/taobao-ebd.github.io/blob/master/README.md">Project README</a><a href="https://github.com/taobao-ebd/taobao-ebd.github.io/blob/master/dataset/README.md">Dataset README</a><a href="https://github.com/taobao-ebd/taobao-ebd.github.io/blob/master/docs/additional_post_mbs.md">Post-MBs README</a></div>
+      <div><span class="mini-label">RESEARCH</span><a href="./paper.html">EBD method page</a><a href="#citation">DOI &amp; citation</a></div>
+    </div>
+    <div class="section-shell footer-bottom"><span>ERMB · CIKM 2026</span><span>Built for public research access.</span></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+  <script src="app.js" defer></script>
+</body>
+</html>
